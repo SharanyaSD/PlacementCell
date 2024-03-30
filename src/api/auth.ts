@@ -1,8 +1,24 @@
 import axios, { AxiosError } from "axios";
 import API_BASE_URL from "./apiConfig";
 
+interface User {
+  id: number;
+  role_id: number;
+  email: string;
+  batch: string;
+  branch: string;
+  created_at: string;
+  first_name: string;
+  last_name: string;
+  linkedin: string;
+  password_digest: string;
+  placed: boolean;
+  updated_at: string;
+}
+
 interface LoginResponse {
   token: string;
+  user: User;
 }
 
 const login = async (email: string, password: string): Promise<LoginResponse> => {
