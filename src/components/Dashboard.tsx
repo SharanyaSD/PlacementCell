@@ -9,9 +9,10 @@ const Dashboard = () => {
       setuserDetails(parsedUserDetails);
     }
   }, []);
+
   return (
     <div>
-      <h1> User Account </h1>
+      <h1> Welcome, user </h1>
       {userDetails && (
         <div>
           <p>
@@ -28,14 +29,7 @@ const Dashboard = () => {
             <strong>Branch: </strong> {userDetails.branch}{" "}
           </p>
           <p>
-            <strong>Created at : </strong> {userDetails.created_at}{" "}
-          </p>
-          <p>
             <strong>LinkedIn: </strong> {userDetails.linkedin}{" "}
-          </p>
-
-          <p>
-            <strong>Updated at: </strong> {userDetails.updated_at}{" "}
           </p>
         </div>
       )}
