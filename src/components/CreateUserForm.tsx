@@ -12,6 +12,7 @@ const CreateUserForm = () => {
       console.log("in try");
       const response = await createUser({ user: values });
       console.log(response.data);
+      navigate(`/users/${formik.values.email}`);
     } catch (error) {
       console.log("in catch");
       console.log(error);
@@ -32,9 +33,7 @@ const CreateUserForm = () => {
       placed: false,
     },
     onSubmit: (values) => {
-      // console.log(values.password);
       createuser(values);
-      navigate(`/users/${values.email}`);
     },
   });
 
@@ -137,7 +136,7 @@ const CreateUserForm = () => {
             className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
             htmlFor="batch"
           >
-            date_of_joining
+            batch
           </label>
           <input
             id="batch"
@@ -154,7 +153,7 @@ const CreateUserForm = () => {
             className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
             htmlFor="branch"
           >
-            designation
+            branch
           </label>
           <input
             id="branch"
@@ -171,7 +170,7 @@ const CreateUserForm = () => {
             className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
             htmlFor="LinkedIn"
           >
-            hired_location
+            LinkedIn
           </label>
           <input
             id="linkedin"
