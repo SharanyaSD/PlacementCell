@@ -45,28 +45,35 @@ const AllCompanies = () => {
   };
 
   return (
-    <>
+    <div>
+      <h1>Company List</h1>
       <div>
-        <h1> Company List</h1>
-        <div>
-          {companies.map((company) => {
-            return (
-              <ul key={company.id}>
-                <li onClick={() => navigateCompanyDetails(company.id || 0)}>
-                  {company.name}
-                </li>
-                <button
-                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded"
-                  onClick={() => navigateOpportunities(company.id || 0)}
-                >
-                  Create Opportunity
-                </button>
-              </ul>
-            );
-          })}
-        </div>
+        {companies.map((company) => (
+          <div
+            key={company.id}
+            className="flex items-center justify-between mb-4"
+          >
+            <div onClick={() => navigateCompanyDetails(company.id || 0)}>
+              {company.name}
+            </div>
+            <div className="flex">
+              <button
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mr-1"
+                onClick={() => navigateOpportunities(company.id || 0)}
+              >
+                Create Opportunity
+              </button>
+              <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mr-1">
+                Student Placements
+              </button>
+              <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">
+                Company Placements
+              </button>
+            </div>
+          </div>
+        ))}
       </div>
-    </>
+    </div>
   );
 };
 

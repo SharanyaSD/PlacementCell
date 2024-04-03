@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import API_BASE_URL from "../api/apiConfig";
 import axios from "axios";
 import storage from "../utilities/storage";
@@ -8,12 +8,12 @@ import Opportunities from "./Opportunities";
 const CompanyDetails = () => {
   const { id } = useParams<{ id: string }>();
   const [company, setCompany] = useState<any>(null);
-
+  const navigate = useNavigate();
   useEffect(() => {
     axios({
       method: "GET",
       url: `${API_BASE_URL}/companies/${id}`,
-      headers: { 'Authorization': `Bearer ${storage.getToken()}` },
+      headers: { Authorization: `Bearer ${storage.getToken()}` },
     })
       .then((res) => {
         setCompany(res.data);
@@ -32,13 +32,13 @@ const CompanyDetails = () => {
       });
   }, [id]);
 
-  const handleUpdateCompany = async (id: number) => {
+  const UpdateCompany = async () => {
     try {
-      await handleUpdateCompany(id);
-
+      await handleUpdateCompany(company, company.id);
+      navigate(`/update-company/${id}`);
       console.log("Updated company  id", id);
-    } catch {
-      console.log("error - updating company");
+    } catch (error) {
+      console.log("error - updating company", error);
     }
   };
 
@@ -47,17 +47,53 @@ const CompanyDetails = () => {
   }
   return (
     <div>
-      <h1>Company Details</h1>
-      <p>Name: {company.name}</p>
-      <p>Information: {company.information}</p>
-      <p>Website: {company.website}</p>
-      <button
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        onClick={() => handleUpdateCompany(company.id)}
-      >
-        {" "}
-        update{" "}
-      </button>
+      <div className="flex justify-between">
+        <div className="w-3/4">
+          <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <div className="mb-4">
+              <p className="text-4xl font-semibold text-gray-900 dark:text-black">
+                {company.name}
+              </p>
+            </div>
+            <div className="mb-4">
+              <p className="text-blue-600">
+                Google's parent company Alphabet Inc. is one of the five Big
+                Tech companies, alongside Amazon, Apple, Meta, and Microsoft.
+                U.S. Alphabet Inc. Google was founded on September 4, 1998, by
+                American computer scientists Larry Page and Sergey Brin while
+                they were PhD students at Stanford University in California.{" "}
+                {company.information}
+              </p>
+            </div>
+            <div>
+              <p>
+                Visit:{" "}
+                <a
+                  href={company.website}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {company.website}
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div className="w-1/4 flex flex-col items-center justify-center">
+          <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4">
+            Create Company Placement
+          </button>
+          <button
+            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4"
+            onClick={UpdateCompany}
+          >
+            Update Company
+          </button>
+          <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4">
+            Create Student Placement
+          </button>
+        </div>
+      </div>
       <Opportunities />
     </div>
   );

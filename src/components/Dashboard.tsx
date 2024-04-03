@@ -1,13 +1,42 @@
 import React, { useEffect, useState } from "react";
+import storage from "../utilities/storage";
+import axios from "axios";
+import API_BASE_URL from "../api/apiConfig";
+import { User } from "../api/auth";
 
 const Dashboard = () => {
-  const [userDetails, setuserDetails] = useState<any>(null);
-  useEffect(() => {
-    const loggedUserDetails = localStorage.getItem("userDetails");
-    if (loggedUserDetails) {
-      const parsedUserDetails = JSON.parse(loggedUserDetails);
-      setuserDetails(parsedUserDetails);
+  const token = storage.getToken();
+  // console.log(token);
+  const object = JSON.parse(atob(token.split(".")[1]));
+  // console.log('dashboard');
+  // console.log(object.user_id);
+
+  const [userDetails, setuserDetails] = useState<User>();
+
+  const fetchUser=async()=>{
+    try{
+      const data=await axios({
+        method: "GET",
+        url: `${API_BASE_URL}/users/${object.user_id}`,
+        headers: {'Authorization':`Bearer ${storage.getToken()}`}
+      });
+      setuserDetails(data.data);
     }
+    catch(error){
+      console.log(error);
+    }
+  }
+  
+
+  // console.log(object);
+  useEffect(() => {
+    // const loggedUserDetails = localStorage.getItem("userDetails");
+    // console.log(loggedUserDetails);
+    // if (loggedUserDetails) {
+    //   const parsedUserDetails = JSON.parse(loggedUserDetails);
+    //   setuserDetails(parsedUserDetails);
+    // }
+    fetchUser()
   }, []);
 
   return (
