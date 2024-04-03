@@ -15,9 +15,10 @@ const CreateOpportunityForm = () => {
   const create_opportunity = async (values: any) => {
     // console.log("in create", values);
     try {
-      console.log("try")
+      console.log("try");
       const response = await createOpportunity(values);
       console.log(response.data);
+      navigate(`/companies/${id}`);
     } catch (error) {
       console.error("Error creating opportunity:", error);
     }
@@ -33,13 +34,11 @@ const CreateOpportunityForm = () => {
       package: 0,
       start_date: "",
       end_date: "",
-
     },
     onSubmit: (values) => {
       // console.log(values.company_id);
       create_opportunity(values);
       // navigate(`/opportunities/${props.companyId}`);
-      navigate(`/opportunities/${id}`);
     },
     validate: (values) => {
       const errors: any = {};
