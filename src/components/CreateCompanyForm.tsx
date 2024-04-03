@@ -7,7 +7,8 @@ const CreateCompanyForm = () => {
     try {
       console.log("in try");
       const response = await createCompany({ company: values });
-      console.log(response.data);
+      console.log(response.data.id);
+      navigate(`/companies/${response.data.id}`);
     } catch (error) {
       console.log("in catch");
       console.log(error);
@@ -23,7 +24,6 @@ const CreateCompanyForm = () => {
     onSubmit: (values) => {
       // console.log(values.password);
       create_company(values);
-      navigate(`/companies/${values.name}`);
     },
   });
   return (
