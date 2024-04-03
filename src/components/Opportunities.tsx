@@ -32,7 +32,7 @@ const Opportunities = () => {
         headers: { Authorization: `Bearer ${storage.getToken()}` },
       });
       setOpportunities(response.data);
-      // console.log(response);
+      console.log(response);
     } catch (error) {
       console.error("Error fetch opportunities", error);
     }
@@ -56,13 +56,14 @@ const Opportunities = () => {
   const CloseOpportunity = async (opportunity: OpportunityId) => {
     try {
       await closeOpportunity(opportunity, opportunity.id);
-      navigate(`close_opportunity/${opportunity.id}`);
     } catch {
       console.error("Error closing oppo ");
     } finally {
       fetchOpportunity();
     }
   };
+
+  const Apply = async (opportunity: OpportunityId) => {};
 
   return (
     <div>
@@ -83,30 +84,34 @@ const Opportunities = () => {
               <p>Package: {opportunity.package}</p>
             </div>
             <div className="mt-4 flex justify-end">
-              {role_id === 1 && ( // Role 1 has Update and Close buttons
-                <>
-                  <button
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2 ml-1"
-                    onClick={() => UpdateOpportunity(opportunity)}
-                  >
-                    Update
-                  </button>
-                  <button
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-1"
-                    onClick={() => CloseOpportunity(opportunity)}
-                  >
-                    Close
-                  </button>
-                </>
-              )}
-              {role_id === 2 ||
-                (role_id === 3 && ( // Role 1 has Update and Close buttons
+              {role_id === 1 ||
+                (role_id === 2 && ( // Role 1 has Update and Close buttons
                   <>
-                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2 ml-1">
-                      Apply
+                    <button
+                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2 ml-1"
+                      onClick={() => UpdateOpportunity(opportunity)}
+                    >
+                      Update
+                    </button>
+                    <button
+                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-1"
+                      onClick={() => CloseOpportunity(opportunity)}
+                    >
+                      Close
                     </button>
                   </>
                 ))}
+              {role_id === 3 && ( // Role 1 has Update and Close buttons
+                <>
+                  <button
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2 ml-1"
+                    onClick={() => Apply(opportunity)}
+                    disabled={opportunity.status === "closed"}
+                  >
+                    Apply
+                  </button>
+                </>
+              )}
             </div>
           </div>
         ))}
