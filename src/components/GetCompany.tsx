@@ -6,14 +6,14 @@ import API_BASE_URL from "../api/apiConfig";
 import storage from "../utilities/storage";
 
 const GetCompany = () => {
-  const { name } = useParams();
+  const { id } = useParams();
   const [company, setCompany] = useState<Company>();
 
-  useEffect(() => {
-    if (name) {
-      axios({
+  const fetchCompany = async () => {
+    if (id) {
+      await axios({
         method: "GET",
-        url: `${API_BASE_URL}/company?name=${name}`,
+        url: `${API_BASE_URL}/companies/${id}`,
         headers: { Authorization: `Bearer ${storage.getToken()}` },
       })
         .then((res) => {
@@ -24,10 +24,13 @@ const GetCompany = () => {
           console.log(err);
         });
     }
-  }, [name]);
+  };
+  useEffect(() => {
+    fetchCompany();
+  }, [id]);
   return (
     <div>
-      <h1> Created user - </h1>
+      <h1> Created companny - </h1>
       {company && (
         <div>
           <p>
