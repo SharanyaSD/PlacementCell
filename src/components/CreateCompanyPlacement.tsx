@@ -1,16 +1,26 @@
 import React from "react";
 import { createCompanyPlacement } from "../api/auth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useFormik } from "formik";
+import { number } from "yup";
 const CreateCompanyPlacement = () => {
+  const { id } = useParams();
+  console.log(id);
+
   const create_company_placement = async (values: {}) => {
-    try {
-      console.log("in try");
-      const response = await createCompanyPlacement({ company: values });
-      console.log(response.data);
-    } catch (error) {
-      console.log("in catch");
-      console.log(error);
+    if (id) {
+      try {
+        console.log("in try");
+
+        const response = await createCompanyPlacement(
+          { company_placement: values },
+          id
+        );
+        console.log(response.data);
+      } catch (error) {
+        console.log("in catch");
+        console.log(error);
+      }
     }
   };
   const navigate = useNavigate();
@@ -23,7 +33,7 @@ const CreateCompanyPlacement = () => {
     onSubmit: (values) => {
       console.log(values);
       create_company_placement(values);
-      // navigate(`/companies/${id}`);
+      // navigate(`/company_placements//`);
     },
   });
   return (
