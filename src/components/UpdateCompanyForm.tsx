@@ -14,17 +14,6 @@ const UpdateCompanyForm = () => {
     website: "",
   };
 
-  // useEffect(() => {
-  //   axios
-  //     .get(`${API_BASE_URL}/companies/${id}`)
-  //     .then((res) => {
-  //       formik.setValues(res.data);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error fetching company details:", error);
-  //     });
-  // }, [id]);
-
   const onSubmit = (values: any) => {
     axios({
       method: "PUT",

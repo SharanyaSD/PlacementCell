@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 const AllCompanies = () => {
   const navigate = useNavigate();
+  const role_id = storage.getRole();
   const [companies, setCompanies] = useState<Company[]>([]);
   console.log("in companies", storage.getToken());
   useEffect(() => {
@@ -57,18 +58,29 @@ const AllCompanies = () => {
               {company.name}
             </div>
             <div className="flex">
-              <button
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mr-1"
-                onClick={() => navigateOpportunities(company.id || 0)}
-              >
-                Create Opportunity
-              </button>
-              <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mr-1">
-                Student Placements
-              </button>
-              <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">
-                Company Placements
-              </button>
+              {role_id === 1 || role_id === 2 ? (
+                <>
+                  <button
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mr-1"
+                    onClick={() => navigateOpportunities(company.id || 0)}
+                  >
+                    Create Opportunity
+                  </button>
+                  <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mr-1">
+                    Student Placements
+                  </button>
+                  <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">
+                    Company Placements
+                  </button>
+                </>
+              ) : null}
+              {role_id === 3 ? (
+                <>
+                  <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mr-1">
+                    Student Placements
+                  </button>
+                </>
+              ) : null}
             </div>
           </div>
         ))}
