@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
-  createOpportunity,
   Opportunity,
   handleUpdateOpportunity,
-  handleDeleteOpportunity,
+  closeOpportunity,
 } from "../api/auth";
 import API_BASE_URL from "../api/apiConfig";
 
-import CreateOpportunityForm from "./CreateOpportunityForm";
 import axios from "axios";
 import storage from "../utilities/storage";
 
@@ -17,9 +15,15 @@ interface OpportunityId extends Opportunity {
 }
 
 const Opportunities = () => {
+  const role_id = storage.getRole();
+  console.log("in oppo");
+  console.log(role_id);
+
   const [opportunities, setOpportunities] = useState<OpportunityId[]>([]);
   const { id } = useParams();
   console.log("in ", id);
+  const navigate = useNavigate();
+
   const fetchOpportunity = async () => {
     try {
       const response = await axios({
@@ -37,80 +41,76 @@ const Opportunities = () => {
     fetchOpportunity();
   }, [id]);
 
-  const UpdateOpportunity = async (opportunity:{},id:number) => {
+  const UpdateOpportunity = async (opportunity: OpportunityId) => {
     try {
-      await handleUpdateOpportunity({"opportunity":opportunity},id);
-
-      console.log("Updated oppo  id", id);
+      await handleUpdateOpportunity(opportunity, opportunity.id);
+      navigate(`/update-opportunity/${opportunity.id}`);
+      console.log("Updated oppo  id", opportunity.id);
     } catch {
       console.log("error - updating oppo");
     } finally {
       fetchOpportunity();
     }
   };
-
-  // const deleteOpportunity = async (id: number) => {
-  //   try {
-  //     await handleDeleteOpportunity(id);
-  //     console.log("deleted oppo  id", id);
-  //   } catch {
-  //     console.log("error - deleting oppo");
-  //   } finally {
-  //     fetchOpportunity();
-  //   }
-  // };
-
-  const CloseOpportunity = async (id: number) => {
-    // try {
-    //     await closeOpportunity(id);
-    //     fetchOpportunity(id)
-    // } catch {
-    //     console.error("Error closing oppo ", error);
-    // }
+  //delete opportunity
+  const CloseOpportunity = async (opportunity: OpportunityId) => {
+    try {
+      await closeOpportunity(opportunity, opportunity.id);
+      navigate(`close_opportunity/${opportunity.id}`);
+    } catch {
+      console.error("Error closing oppo ");
+    } finally {
+      fetchOpportunity();
+    }
   };
-
-  // const handleCreateOpportunity = async (newOpportunity: Opportunity) => {
-  //   try {
-  //     await createOpportunity(newOpportunity);
-  //     //   fetchOpportunities();
-  //   } catch (error) {
-  //     console.error("Error creating opportunity:", error);
-  //   }
-  // };
 
   return (
     <div>
-      <h1>Opportunities for Company ID: {id}</h1>
+      <h1>Opportunities for Company</h1>
 
-      <ul>
+      <div className="grid grid-cols-1 gap-4">
         {opportunities.map((opportunity) => (
-          <li key={opportunity.id}>
-            <p>{opportunity.designation}</p>
-            <p>Status: {opportunity.status}</p>
-            <p>Skillset: {opportunity.skillset}</p>
-            <p>Package: {opportunity.package}</p>
+          <div
+            key={opportunity.id}
+            className="bg-white shadow-md rounded px-4 py-4 flex flex-col justify-between"
+          >
+            <div>
+              <p>{opportunity.designation}</p>
 
-            <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-              onClick={() => UpdateOpportunity(opportunity.id)}
-            >
-              Update
-            </button>
-            {/* <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-              onClick={() => deleteOpportunity(opportunity.id)}
-            >
-              Delete
-            </button> */}
-            <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-              onClick={() => CloseOpportunity(opportunity.id)}
-            >
-              Close
-            </button>
-          </li>
+              <p>Status: {opportunity.status}</p>
+              <p>No. of Applications: {opportunity.no_of_applications}</p>
+              <p>Skillset: {opportunity.skillset}</p>
+              <p>Package: {opportunity.package}</p>
+            </div>
+            <div className="mt-4 flex justify-end">
+              {role_id === 1 && ( // Role 1 has Update and Close buttons
+                <>
+                  <button
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2 ml-1"
+                    onClick={() => UpdateOpportunity(opportunity)}
+                  >
+                    Update
+                  </button>
+                  <button
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-1"
+                    onClick={() => CloseOpportunity(opportunity)}
+                  >
+                    Close
+                  </button>
+                </>
+              )}
+              {role_id === 2 ||
+                (role_id === 3 && ( // Role 1 has Update and Close buttons
+                  <>
+                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2 ml-1">
+                      Apply
+                    </button>
+                  </>
+                ))}
+            </div>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 };
