@@ -12,10 +12,14 @@ const Login = () => {
       const data = await login(e.target.email.value, e.target.password.value);
 
       // localStorage.setItem("adminToken", data.token);
-      console.log(data.user.role_id)
+      console.log(data.user.role_id);
       storage.setRole(data.user.role_id);
       // localStorage.setItem("userDetails", JSON.stringify(data.user));
       storage.setToken(data.token);
+      console.log("data", data);
+
+      console.log("token", data.token);
+
       // console.log("user details", data.user);
       navigate("/dashboard");
     } catch (error) {
