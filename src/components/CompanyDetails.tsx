@@ -5,7 +5,11 @@ import axios from "axios";
 import storage from "../utilities/storage";
 import { handleUpdateCompany } from "../api/auth";
 import Opportunities from "./Opportunities";
+
 const CompanyDetails = () => {
+  const role_id = storage.getRole();
+  console.log("Company details ", role_id);
+
   const { id } = useParams<{ id: string }>();
   const [company, setCompany] = useState<any>(null);
   const navigate = useNavigate();
@@ -32,6 +36,10 @@ const CompanyDetails = () => {
       });
   }, [id]);
 
+  const companyPlacements = () => {
+    navigate(`/company_placements/${id}`);
+  };
+
   const UpdateCompany = async () => {
     try {
       await handleUpdateCompany(company, company.id);
@@ -55,6 +63,7 @@ const CompanyDetails = () => {
                 {company.name}
               </p>
             </div>
+
             <div className="mb-4">
               <p className="text-blue-600">
                 Google's parent company Alphabet Inc. is one of the five Big
@@ -80,18 +89,26 @@ const CompanyDetails = () => {
           </div>
         </div>
         <div className="w-1/4 flex flex-col items-center justify-center">
-          <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4">
-            Create Company Placement
-          </button>
-          <button
-            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4"
-            onClick={UpdateCompany}
-          >
-            Update Company
-          </button>
-          <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4">
-            Create Student Placement
-          </button>
+          {role_id === 1 || role_id === 2 ? (
+            <>
+              <button
+                className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4"
+                onClick={companyPlacements}
+              >
+                Create Company Placement
+              </button>
+              <button
+                className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4"
+                onClick={UpdateCompany}
+              >
+                Update Company
+              </button>
+              <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4">
+                Create Student Placement
+              </button>
+            </>
+          ) : null}
+          {role_id === 3 ? <></> : null}
         </div>
       </div>
       <Opportunities />
