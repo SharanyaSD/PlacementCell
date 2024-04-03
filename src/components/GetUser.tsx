@@ -10,21 +10,25 @@ const GetUser = () => {
   const [user, setUser] = useState<User>();
   //   const navigate = useNavigate();
 
-  useEffect(() => {
+  const fetchUser = async () => {
     if (email) {
-      axios({
+      await axios({
         method: "GET",
         url: `${API_BASE_URL}/users?email=${email}`,
         headers: { Authorization: `Bearer ${storage.getToken()}` },
       })
         .then((res) => {
-          setUser(res.data);
-          console.log(res.data);
+          setUser(res.data[0]);
+          console.log("response data", res.data[0]);
         })
         .catch((err) => {
           console.log(err);
         });
     }
+  };
+
+  useEffect(() => {
+    fetchUser();
   }, [email]);
 
   // const navigateCreate = () => {
