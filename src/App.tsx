@@ -14,6 +14,10 @@ import CompanyDetails from "./components/CompanyDetails";
 import UpdateCompanyForm from "./components/UpdateCompanyForm";
 import UpdateOpportunityForm from "./components/UpdateOpportunityForm";
 import CreateCompanyPlacement from "./components/CreateCompanyPlacement";
+import { ThemeProvider } from "@emotion/react";
+import theme from "./utilities/Theme";
+import CssBaseline from "@mui/material/CssBaseline";
+// import HomePage from "./components/HomePage";
 // import AllCompanies from "./components/AllCompanies";
 
 const router = createBrowserRouter([
@@ -84,9 +88,12 @@ const router = createBrowserRouter([
 
 const App = () => {
   return (
-    <div className="App">
-      <RouterProvider router={router} />
-    </div>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <div className="App">
+        <RouterProvider router={router} />
+      </div>
+    </ThemeProvider>
   );
 };
 

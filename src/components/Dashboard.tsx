@@ -35,9 +35,11 @@ const Dashboard = () => {
 
   return (
     <div>
-      <h1> Welcome, user </h1>
       {userDetails && (
         <div>
+          <h1>
+            <strong>Welcome, </strong> {userDetails.first_name}
+          </h1>
           <p>
             <strong>Name :</strong> {userDetails.first_name}{" "}
             {userDetails.last_name}
@@ -45,7 +47,7 @@ const Dashboard = () => {
           <p>
             <strong>Email: </strong> {userDetails.email}{" "}
           </p>
-          <p>
+          {/* <p>
             <strong>Batch: </strong> {userDetails.batch}{" "}
           </p>
           <p>
@@ -53,7 +55,7 @@ const Dashboard = () => {
           </p>
           <p>
             <strong>LinkedIn: </strong> {userDetails.linkedin}{" "}
-          </p>
+          </p> */}
 
           {role_id === 1 || role_id === 2 ? (
             <>
