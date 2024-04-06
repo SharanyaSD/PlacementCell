@@ -84,24 +84,23 @@ const Opportunities = () => {
               <p>Package: {opportunity.package}</p>
             </div>
             <div className="mt-4 flex justify-end">
-              {role_id === 1 ||
-                (role_id === 2 && ( // Role 1 has Update and Close buttons
-                  <>
-                    <button
-                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2 ml-1"
-                      onClick={() => UpdateOpportunity(opportunity)}
-                    >
-                      Update
-                    </button>
-                    <button
-                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-1"
-                      onClick={() => CloseOpportunity(opportunity)}
-                    >
-                      Close
-                    </button>
-                  </>
-                ))}
-              {role_id === 3 && ( // Role 1 has Update and Close buttons
+              {role_id === 1 || role_id === 2 ? (
+                <>
+                  <button
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2 ml-1"
+                    onClick={() => UpdateOpportunity(opportunity)}
+                  >
+                    Update
+                  </button>
+                  <button
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-1"
+                    onClick={() => CloseOpportunity(opportunity)}
+                  >
+                    Close
+                  </button>
+                </>
+              ) : null}
+              {role_id === 3 ? (
                 <>
                   <button
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2 ml-1"
@@ -111,7 +110,7 @@ const Opportunities = () => {
                     Apply
                   </button>
                 </>
-              )}
+              ) : null}
             </div>
           </div>
         ))}

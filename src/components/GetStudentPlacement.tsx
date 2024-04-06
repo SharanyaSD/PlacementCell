@@ -1,7 +1,7 @@
 import React from "react";
 
 const GetStudentPlacement = () => {
-  return <div></div>;
+  return <div>Got student Placement</div>;
 };
 
 export default GetStudentPlacement;

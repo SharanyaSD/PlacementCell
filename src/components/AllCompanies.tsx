@@ -45,6 +45,14 @@ const AllCompanies = () => {
     navigate(`/opportunities/${companyId}`);
   };
 
+  const navigateStudentPlacements = (companyId: number) => {
+    navigate(`/get_student_placements/${companyId}`);
+  };
+
+  const navigateCompanyPlacements = (companyId: number) => {
+    navigate(`/get_company_placements/${companyId}`);
+  };
+
   return (
     <div>
       <h1>Company List</h1>
@@ -54,33 +62,37 @@ const AllCompanies = () => {
             key={company.id}
             className="flex items-center justify-between mb-4"
           >
-            <div onClick={() => navigateCompanyDetails(company.id || 0)}>
-              {company.name}
-            </div>
-            <div className="flex">
-              {role_id === 1 || role_id === 2 ? (
-                <>
-                  <button
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mr-1"
-                    onClick={() => navigateOpportunities(company.id || 0)}
-                  >
-                    Create Opportunity
-                  </button>
-                  <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mr-1">
-                    Student Placements
-                  </button>
-                  <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">
-                    Company Placements
-                  </button>
-                </>
-              ) : null}
-              {role_id === 3 ? (
-                <>
-                  <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mr-1">
-                    Student Placements
-                  </button>
-                </>
-              ) : null}
+            <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-white-800 dark:border-white-700">
+              <div className="p-5">
+                <div onClick={() => navigateCompanyDetails(company.id || 0)}>
+                  {company.name}
+                </div>
+                <div className="flex">
+                  {role_id === 1 || role_id === 2 ? (
+                    <>
+                      <button
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mr-1"
+                        onClick={() => navigateOpportunities(company.id || 0)}
+                      >
+                        Create Opportunity
+                      </button>
+                      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mr-1" onClick={()=>navigateStudentPlacements(company.id||0)} >
+                        Student Placements
+                      </button>
+                      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded" onClick={()=>{navigateCompanyPlacements(company.id||0)}}>
+                        Company Placements
+                      </button>
+                    </>
+                  ) : null}
+                  {role_id === 3 ? (
+                    <>
+                      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mr-1">
+                        Student Placements
+                      </button>
+                    </>
+                  ) : null}
+                </div>
+              </div>
             </div>
           </div>
         ))}

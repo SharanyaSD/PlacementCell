@@ -36,9 +36,14 @@ const CompanyDetails = () => {
       });
   }, [id]);
 
-  const companyPlacements = () => {
-    navigate(`/company_placements/${id}`);
+  const companyPlacements = (id:number) => {
+    navigate(`/create_company_placements/${id}`);
   };
+
+  const studentPlacements = (id:number) => {
+    navigate(`/create_student_placements/${id}`);
+  };
+
 
   const UpdateCompany = async () => {
     try {
@@ -93,7 +98,7 @@ const CompanyDetails = () => {
             <>
               <button
                 className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4"
-                onClick={companyPlacements}
+                onClick={()=>{companyPlacements(company.id)}}
               >
                 Create Company Placement
               </button>
@@ -101,9 +106,9 @@ const CompanyDetails = () => {
                 className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4"
                 onClick={UpdateCompany}
               >
-                Update Company
+                Update Company Details
               </button>
-              <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4">
+              <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4" onClick={()=>{studentPlacements(company.id)}} >
                 Create Student Placement
               </button>
             </>

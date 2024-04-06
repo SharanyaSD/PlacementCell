@@ -17,6 +17,9 @@ import CreateCompanyPlacement from "./components/CreateCompanyPlacement";
 import { ThemeProvider } from "@emotion/react";
 import theme from "./utilities/Theme";
 import CssBaseline from "@mui/material/CssBaseline";
+import GetStudentPlacement from "./components/GetStudentPlacement";
+import GetCompanyPlacement from "./components/GetCompanyPlacement";
+import CreateStudentPlacement from "./components/CreateStudentPlacement";
 // import HomePage from "./components/HomePage";
 // import AllCompanies from "./components/AllCompanies";
 
@@ -70,20 +73,21 @@ const router = createBrowserRouter([
     element: <UpdateOpportunityForm />,
   },
   {
-    path: "/company_placements/:id",
+    path: "/create_company_placements/:id",
     element: <CreateCompanyPlacement />,
   },
-
-  // {
-  //   path: "/close-opportunity/:id",
-  //   element: <Opportunities />,
-  // },
-  // {
-  //   path: "create-opportunity",
-  //   element: <CreateOpportunityForm />,
-  // },
-
-  //ytm CreateUSer and UpdateUSer
+  {
+    path: "/get_student_placements/:id",
+    element: <GetStudentPlacement/>
+  },
+  {
+    path: "/get_company_placements/:id",
+    element: <GetCompanyPlacement/>
+  },
+  {
+    path: "/create_student_placements/:id",
+    element: <CreateStudentPlacement   />,
+  }
 ]);
 
 const App = () => {

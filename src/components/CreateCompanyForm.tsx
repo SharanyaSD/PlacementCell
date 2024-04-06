@@ -2,6 +2,7 @@ import React from "react";
 import { createCompany } from "../api/auth";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
+import { Box, Button, TextField } from "@mui/material";
 const CreateCompanyForm = () => {
   const create_company = async (values: {}) => {
     try {
@@ -27,76 +28,95 @@ const CreateCompanyForm = () => {
     },
   });
   return (
-    <form
-      className="max-w-md mx-auto mt-20 px-4 py-8"
-      onSubmit={formik.handleSubmit}
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        minHeight: "100vh",
+        backgroundColor: "#f0f0f0",
+      }}
     >
-      <div className="flex flex-wrap -mx-3 mb-6">
-        <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0"></div>
-        <div>
-          <label
-            className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-            htmlFor="name"
-          >
-            Name:
-          </label>
-          <input
-            id="name"
-            name="name"
-            type="text"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.name}
-            className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-          />
-        </div>
+      <div
+        style={{
+          width: "300px",
+          height: "350px",
+          backgroundColor: "#ffffff",
+          padding: "20px",
+          borderRadius: "5px",
+          boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
+        }}
+      >
+        <Box
+          component="form"
+          sx={{
+            "& .MuiTextField-root": { m: 1, width: "25ch" },
+          }}
+          noValidate
+          autoComplete="off"
+          onSubmit={formik.handleSubmit}
+        >
+          <div>
+            <div
+              style={{
+                justifyContent: "center",
+                marginTop: "20px",
+              }}
+            >
+              <TextField
+                required
+                id="name"
+                name="name"
+                type="text"
+                label="Name of Company"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.name}
+              />
+              <div></div>
+              <TextField
+                required
+                id="information"
+                name="information"
+                type="text"
+                label="information Name"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.information}
+              />
+              <div></div>
 
-        <div>
-          <label
-            className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-            htmlFor="information"
-          >
-            Information:
-          </label>
-          <input
-            id="information"
-            name="information"
-            type="text"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.information}
-            className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-          />
-        </div>
-
-        <div>
-          <label
-            className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-            htmlFor="website"
-          >
-            Website:
-          </label>
-          <input
-            id="website"
-            name="website"
-            type="text"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.website}
-            className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-          />
-        </div>
-
-        <div>
-          <button
-            type="submit"
-            className="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded"
-          >
-            ADD
-          </button>
-        </div>
+              <TextField
+                required
+                id="website"
+                name="website"
+                type="text"
+                label="Webiste"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.website}
+              />
+            </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                marginTop: "20px",
+              }}
+            >
+              <Button
+                type="submit"
+                variant="contained"
+                color="success"
+                disableElevation
+              >
+                Add
+              </Button>
+            </div>
+          </div>
+        </Box>
       </div>
-    </form>
+    </div>
   );
 };
 

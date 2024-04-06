@@ -158,7 +158,15 @@ export const handleUpdateCompany = async (payload: {}, id: number) => {
 //   }
 // };
 
-
+export const createStudentPlacement = async (payload:{}, id :string) => {
+  console.log(payload);
+  return await axios({
+    method: "POST",
+    url: `${API_BASE_URL}/companies/${id}/student_placements`,
+    data: payload,
+    headers: {'Authorization':`Bearer ${storage.getToken()}`}
+  });
+}
 export const closeOpportunity = async (payload: {}, id: number) => {
   console.log(payload);
   return await axios({
