@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Company } from "../api/auth";
 import API_BASE_URL from "../api/apiConfig";
 import axios from "axios";
@@ -10,7 +10,7 @@ const AllCompanies = () => {
   const navigate = useNavigate();
   const role_id = storage.getRole();
   const [companies, setCompanies] = useState<Company[]>([]);
-  
+  const [searchKey, setSearchKey] = useState("");
 
   console.log("in companies", storage.getToken());
   useEffect(() => {
@@ -53,6 +53,12 @@ const AllCompanies = () => {
   const navigateCompanyPlacements = (companyId: number) => {
     navigate(`/get_company_placements/${companyId}`);
   };
+
+  const visibleCompanies: Company[] = useMemo(() => {
+    return companies.filter((item) =>
+      item.name.toLowerCase().includes(searchKey.toLowerCase())
+    );
+  }, [companies, searchKey]);
 
   const columns: GridColDef[] = [
     { field: "name", headerName: "Company Name", width: 200 },
@@ -104,8 +110,15 @@ const AllCompanies = () => {
       style={{ height: 800, width: "100%", margin: "auto", marginTop: "20px" }}
     >
       <h1>Company List</h1>
+      <input
+        type="text"
+        placeholder="Search by company name"
+        value={searchKey}
+        onChange={(e) => setSearchKey(e.target.value)}
+        style={{ marginBottom: "10px", padding: "5px" }}
+      />
       <DataGrid
-        rows={companies}
+        rows={visibleCompanies}
         columns={columns}
         pageSizeOptions={[5, 10, 25]}
         checkboxSelection
