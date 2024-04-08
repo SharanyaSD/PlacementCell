@@ -4,13 +4,14 @@ import API_BASE_URL from "../api/apiConfig";
 import axios from "axios";
 import storage from "../utilities/storage";
 import { useNavigate } from "react-router-dom";
-
-//check once
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
 
 const AllCompanies = () => {
   const navigate = useNavigate();
   const role_id = storage.getRole();
   const [companies, setCompanies] = useState<Company[]>([]);
+  
+
   console.log("in companies", storage.getToken());
   useEffect(() => {
     axios({
@@ -53,50 +54,63 @@ const AllCompanies = () => {
     navigate(`/get_company_placements/${companyId}`);
   };
 
-  return (
-    <div>
-      <h1>Company List</h1>
-      <div>
-        {companies.map((company) => (
-          <div
-            key={company.id}
-            className="flex items-center justify-between mb-4"
-          >
-            <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-white-800 dark:border-white-700">
-              <div className="p-5">
-                <div onClick={() => navigateCompanyDetails(company.id || 0)}>
-                  {company.name}
-                </div>
-                <div className="flex">
-                  {role_id === 1 || role_id === 2 ? (
-                    <>
-                      <button
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mr-1"
-                        onClick={() => navigateOpportunities(company.id || 0)}
-                      >
-                        Create Opportunity
-                      </button>
-                      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mr-1" onClick={()=>navigateStudentPlacements(company.id||0)} >
-                        Student Placements
-                      </button>
-                      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded" onClick={()=>{navigateCompanyPlacements(company.id||0)}}>
-                        Company Placements
-                      </button>
-                    </>
-                  ) : null}
-                  {role_id === 3 ? (
-                    <>
-                      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mr-1">
-                        Student Placements
-                      </button>
-                    </>
-                  ) : null}
-                </div>
-              </div>
+  const columns: GridColDef[] = [
+    { field: "name", headerName: "Company Name", width: 200 },
+    {
+      field: "actions",
+      headerName: "Actions",
+      width: 500,
+      renderCell: (params) => (
+        <div
+          style={{ display: "flex", justifyContent: "flex-end", gap: "10px" }}
+        >
+          {role_id === 1 || role_id === 2 ? (
+            <div style={{ marginLeft: "auto" }}>
+              <button
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mr-1"
+                onClick={() => navigateOpportunities(params.row.id)}
+              >
+                Create Opportunity
+              </button>
+              <button
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded"
+                onClick={() => navigateCompanyPlacements(params.row.id)}
+              >
+                Company Placements
+              </button>
+              <button
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mr-1"
+                onClick={() => navigateStudentPlacements(params.row.id)}
+              >
+                Student Placements
+              </button>
             </div>
-          </div>
-        ))}
-      </div>
+          ) : null}
+          {role_id === 3 ? (
+            <button
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mr-1"
+              onClick={() => navigateStudentPlacements(params.row.id)}
+            >
+              Student Placements
+            </button>
+          ) : null}
+        </div>
+      ),
+    },
+  ];
+
+  return (
+    <div
+      style={{ height: 800, width: "100%", margin: "auto", marginTop: "20px" }}
+    >
+      <h1>Company List</h1>
+      <DataGrid
+        rows={companies}
+        columns={columns}
+        pageSizeOptions={[5, 10, 25]}
+        checkboxSelection
+        onRowDoubleClick={(params) => navigateCompanyDetails(params.row.id)}
+      />
     </div>
   );
 };
