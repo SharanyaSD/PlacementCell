@@ -17,10 +17,15 @@ import { User } from "../api/auth";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import API_BASE_URL from "../api/apiConfig";
+import { Modal } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 // const pages = ["Products", "Pricing", "Blog"];
 
 function ResponsiveAppBar() {
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
@@ -45,9 +50,11 @@ function ResponsiveAppBar() {
   };
   const token = storage.getToken();
   const object = JSON.parse(atob(token.split(".")[1]));
-  //   const role_id = storage.getRole();
+  const role_id = storage.getRole();
 
   const [userDetails, setuserDetails] = useState<User>();
+
+  const navigate = useNavigate();
 
   const fetchUser = async () => {
     try {
@@ -62,15 +69,34 @@ function ResponsiveAppBar() {
     }
   };
 
+  const handleLogout = () => {
+    storage.clearToken();
+    navigate("/");
+  };
+
   useEffect(() => {
     fetchUser();
   }, []);
-  const settings = [
-    `${userDetails?.first_name}${" "}
-  ${userDetails?.last_name}`,
+
+  let settings = [
+    `${userDetails?.first_name} ${userDetails?.last_name}`,
     `${userDetails?.email}`,
-    `${userDetails?.branch}`,
   ];
+  // if (role_id === 1 || role_id === 2) {
+  //   settings = [
+  //     `${userDetails?.first_name} ${userDetails?.last_name}`,
+  //     `${userDetails?.email}`,
+  //   ];
+  // } else {
+  //   settings = [
+  //     `${userDetails?.first_name} ${userDetails?.last_name}`,
+  //     `${userDetails?.email}`,
+  //     `${userDetails?.batch}`,
+  //     `${userDetails?.branch}`,
+  //     `${userDetails?.linkedin}`,
+  //   ];
+  // }
+
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -145,7 +171,7 @@ function ResponsiveAppBar() {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}></Box>
 
-          <h4>
+          <h4 className="mr-4">
             <strong>Welcome, </strong> {userDetails?.first_name}
           </h4>
           <Box sx={{ flexGrow: 0 }}>
@@ -176,12 +202,20 @@ function ResponsiveAppBar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
+              {settings.map((setting: any) => (
                 <MenuItem key={setting}>
+                  {/* {console.log(setting)} */}
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}
             </Menu>
+            <button
+              type="submit"
+              className="ml-4 text-white bg-black hover:bg-black focus:ring-4 focus:outline-none focus:ring-black font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center "
+              onClick={handleLogout}
+            >
+              Logout
+            </button>
           </Box>
         </Toolbar>
       </Container>

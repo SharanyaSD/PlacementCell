@@ -16,8 +16,11 @@ interface OpportunityId extends Opportunity {
 
 const Opportunities = () => {
   const role_id = storage.getRole();
+  const user_id = storage.getUser();
+
   console.log("in oppo");
   console.log(role_id);
+  console.log("user_id", user_id);
 
   const [opportunities, setOpportunities] = useState<OpportunityId[]>([]);
   const { id } = useParams();
@@ -42,15 +45,18 @@ const Opportunities = () => {
   }, [id]);
 
   const UpdateOpportunity = async (opportunity: OpportunityId) => {
-    try {
-      await handleUpdateOpportunity(opportunity, opportunity.id);
+    // try {
+    //   await handleUpdateOpportunity(
+    //     { opportunity: opportunity },
+    //     opportunity.id
+    //   );
       navigate(`/update-opportunity/${opportunity.id}`);
-      console.log("Updated oppo  id", opportunity.id);
-    } catch {
-      console.log("error - updating oppo");
-    } finally {
-      fetchOpportunity();
-    }
+      console.log("Updated oppo  id", opportunity);
+    // } catch {
+    //   console.log("error - updating oppo");
+    // } finally {
+    //   fetchOpportunity();
+    // }
   };
   //delete opportunity
   const CloseOpportunity = async (opportunity: OpportunityId) => {
@@ -63,7 +69,27 @@ const Opportunities = () => {
     }
   };
 
-  const Apply = async (opportunity: OpportunityId) => {};
+  const Apply = async (opportunity_id:number) => {
+    if (id) {
+      await axios({
+        method: "POST",
+        url: `${API_BASE_URL}/user_applications`,
+        headers: {
+          Authorization: `Bearer ${storage.getToken()}`,
+        },
+        params: {
+          user_id: user_id,
+          opportunity_id: opportunity_id,
+        },
+      })
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
 
   return (
     <div>
@@ -104,7 +130,7 @@ const Opportunities = () => {
                 <>
                   <button
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2 ml-1"
-                    onClick={() => Apply(opportunity)}
+                    onClick={() => Apply(opportunity.id)}
                     disabled={opportunity.status === "closed"}
                   >
                     Apply

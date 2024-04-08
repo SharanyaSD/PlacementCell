@@ -5,9 +5,14 @@ import axios from "axios";
 import API_BASE_URL from "../api/apiConfig";
 import storage from "../utilities/storage";
 
-const GetCompany = () => {
+interface Props {
+  company: Company;
+  onClose: () => void;
+}
+
+const GetCompany = ({ company, onClose }: Props) => {
   const { id } = useParams();
-  const [company, setCompany] = useState<Company>();
+  // const [company, setCompany] = useState<Company>();
 
   const fetchCompany = async () => {
     if (id) {
@@ -17,7 +22,7 @@ const GetCompany = () => {
         headers: { Authorization: `Bearer ${storage.getToken()}` },
       })
         .then((res) => {
-          setCompany(res.data);
+          // setCompany(res.data);
           console.log(res.data);
         })
         .catch((err) => {
@@ -30,7 +35,7 @@ const GetCompany = () => {
   }, [id]);
   return (
     <div>
-      <h1> Created companny - </h1>
+      {/* <h6> Created companny  </h6> */}
       {company && (
         <div>
           <p>
