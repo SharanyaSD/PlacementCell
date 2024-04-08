@@ -36,14 +36,13 @@ const CompanyDetails = () => {
       });
   }, [id]);
 
-  const companyPlacements = (id:number) => {
+  const companyPlacements = (id: number) => {
     navigate(`/create_company_placements/${id}`);
   };
 
-  const studentPlacements = (id:number) => {
+  const studentPlacements = (id: number) => {
     navigate(`/create_student_placements/${id}`);
   };
-
 
   const UpdateCompany = async () => {
     try {
@@ -70,14 +69,7 @@ const CompanyDetails = () => {
             </div>
 
             <div className="mb-4">
-              <p className="text-blue-600">
-                Google's parent company Alphabet Inc. is one of the five Big
-                Tech companies, alongside Amazon, Apple, Meta, and Microsoft.
-                U.S. Alphabet Inc. Google was founded on September 4, 1998, by
-                American computer scientists Larry Page and Sergey Brin while
-                they were PhD students at Stanford University in California.{" "}
-                {company.information}
-              </p>
+              <p className="text-blue-600">{company.information}</p>
             </div>
             <div>
               <p>
@@ -98,7 +90,9 @@ const CompanyDetails = () => {
             <>
               <button
                 className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4"
-                onClick={()=>{companyPlacements(company.id)}}
+                onClick={() => {
+                  companyPlacements(company.id);
+                }}
               >
                 Create Company Placement
               </button>
@@ -108,7 +102,12 @@ const CompanyDetails = () => {
               >
                 Update Company Details
               </button>
-              <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4" onClick={()=>{studentPlacements(company.id)}} >
+              <button
+                className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4"
+                onClick={() => {
+                  studentPlacements(company.id);
+                }}
+              >
                 Create Student Placement
               </button>
             </>
