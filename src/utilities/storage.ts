@@ -19,6 +19,14 @@ const storage = {
     window.localStorage.setItem(`${storagePrefix}role`, JSON.stringify(role));
   },
 
+  getUser: () => {
+    return JSON.parse(window.localStorage.getItem(`${storagePrefix}user`) as string);
+  },
+  setUser: (user: number) => {
+    window.localStorage.setItem(`${storagePrefix}user`, JSON.stringify(user));
+  },
+
+
 };
 
 export default storage;

@@ -21,6 +21,7 @@ import GetStudentPlacement from "./components/GetStudentPlacement";
 import GetCompanyPlacement from "./components/GetCompanyPlacement";
 import CreateStudentPlacement from "./components/CreateStudentPlacement";
 // import HomePage from "./components/HomePage";
+import { ToastContainer } from "react-toastify";
 // import AllCompanies from "./components/AllCompanies";
 
 const router = createBrowserRouter([
@@ -78,22 +79,27 @@ const router = createBrowserRouter([
   },
   {
     path: "/get_student_placements/:id",
-    element: <GetStudentPlacement/>
+    element: <GetStudentPlacement />,
   },
+  // {
+  //   path: "student_placement/:id",
+  //   element: <GetStudentPlacement />,
+  // },
   {
     path: "/get_company_placements/:id",
-    element: <GetCompanyPlacement/>
+    element: <GetCompanyPlacement />,
   },
   {
     path: "/create_student_placements/:id",
-    element: <CreateStudentPlacement   />,
-  }
+    element: <CreateStudentPlacement />,
+  },
 ]);
 
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
+      <ToastContainer />
       <div className="App">
         <RouterProvider router={router} />
       </div>

@@ -7,6 +7,14 @@ import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
+
+// Inside your main component where you render your app
+<React.StrictMode>
+  <App />
+  <ToastContainer />
+</React.StrictMode>;
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement

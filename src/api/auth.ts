@@ -3,7 +3,7 @@ import API_BASE_URL from "./apiConfig";
 import storage from "../utilities/storage";
 
 export interface User {
-  
+  id: number;
   role_id: number;
   email: string;
   batch: string;
@@ -38,6 +38,21 @@ export interface Opportunity {
 interface LoginResponse {
   token: string;
   user: User;
+}
+
+export interface StudentPlacement {
+  id:number,
+  designation: string,
+  package: string,
+  requirements:string,
+  user_id: number,
+}
+
+export interface CompanyPlacement {
+  id:number,
+  applied: string,
+  year: string,
+  selected: string
 }
 
 const login = async (email: string, password: string): Promise<LoginResponse> => {
