@@ -1,7 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import home from "../assets/images/dypcoe.jpg";
-import { CardContent, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 
 const AdminAccount = () => {
@@ -54,39 +53,9 @@ const AdminAccount = () => {
           </p>
         </div>
 
-        {/* Buttons */}
-        <div className="absolute top-1/2 right-[10%] transform -translate-y-1/2 text-right w-[30%]">
-          {/* <div className="userform mb-2">
-            <button
-              className="text-white bg-gray-800 flex-shrink-0 hover:bg-gray-900  border-gray-500 hover:border-gray-700 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 border-4py-1 mr-2 focus:outline-none padding-top:0.800rem"
-              onClick={navigateCreateUser}
-              style={{ paddingTop: "0.8rem" }}
-            >
-              Create new user
-            </button>
-          </div>
-          <div className="companyForm mb-2">
-            <button
-              className="text-white bg-gray-800 flex-shrink-0 hover:bg-gray-900  border-gray-500 hover:border-gray-700 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 border-4py-1 mr-2 focus:outline-none padding-top:0.800rem"
-              onClick={navigateCompany}
-              style={{ paddingTop: "0.8rem" }}
-            >
-              Add new company
-            </button>
-          </div>
-          <div>
-            <button
-              className="text-white bg-gray-800 flex-shrink-0 hover:bg-gray-900  border-gray-500 hover:border-gray-700 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 border-4py-1 mr-2 focus:outline-none padding-top:0.800rem"
-              onClick={navigateAllCompanies}
-              style={{ paddingTop: "0.8rem" }}
-            >
-              All Companies
-            </button>
-          </div> */}
-        </div>
+        <div className="absolute top-1/2 right-[10%] transform -translate-y-1/2 text-right w-[30%]"></div>
       </div>
       <div className="flex justify-center mt-8">
-        {/* Card 1 */}
         <div className="p-4 max-w-sm mx-auto">
           <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
             <div className="mb-4">
@@ -105,7 +74,6 @@ const AdminAccount = () => {
           </div>
         </div>
 
-        {/* Card 2 */}
         <div className="p-4 max-w-sm mx-auto">
           <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
             <div className="mb-4">
@@ -124,7 +92,6 @@ const AdminAccount = () => {
           </div>
         </div>
 
-        {/* Card 3 */}
         <div className="p-4 max-w-sm mx-auto">
           <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
             <div className="mb-4">
@@ -146,7 +113,5 @@ const AdminAccount = () => {
     </div>
   );
 };
-
-///modify acrds to just text if nto bttons else add text cards on image
 
 export default AdminAccount;
