@@ -1,21 +1,36 @@
 import React from "react";
-import { createCompany, createStudentPlacement } from "../api/auth";
+import { createStudentPlacement } from "../api/auth";
 import { useNavigate, useParams } from "react-router-dom";
 import { useFormik } from "formik";
 import { Box, Button, TextField } from "@mui/material";
+import API_BASE_URL from "../api/apiConfig";
+import { toast } from "react-toastify";
 
 const CreateStudentPlacement = () => {
+  const notifyEmailExists = (message: string) => toast(message);
   const { id } = useParams();
+  const notifySuccess = () => toast("Created Student Placements ");
   const create_company = async (values: {}) => {
     if (id) {
       try {
         console.log("in try");
-
         const response = await createStudentPlacement(values, id);
         console.log(response.data);
-      } catch (error) {
+        navigate(`/get_student_placements/${id}`);
+        toast.success("Created Successfully");
+      } catch (error: any) {
         console.log("in catch");
         console.log(error);
+        console.log(error.response.data);
+        if (
+          error.response &&
+          error.response.data &&
+          error.response.data.errors
+        ) {
+          error.response.data.errors.forEach((error: string) => {
+            notifyEmailExists(error);
+          });
+        }
       }
     }
   };
@@ -135,6 +150,9 @@ const CreateStudentPlacement = () => {
                 variant="contained"
                 color="success"
                 disableElevation
+                // onClick={() => {
+                //   formik.handleSubmit();
+                // }}
               >
                 Add
               </Button>
