@@ -2,8 +2,12 @@ import React from "react";
 import { createCompanyPlacement } from "../api/auth";
 import { useNavigate, useParams } from "react-router-dom";
 import { useFormik } from "formik";
-import { number } from "yup";
+
+import { toast } from "react-toastify";
+import { Box, Container } from "@mui/material";
 const CreateCompanyPlacement = () => {
+  const notify = () => toast("Added Company Placement");
+
   const { id } = useParams();
   console.log(id);
 
@@ -11,12 +15,12 @@ const CreateCompanyPlacement = () => {
     if (id) {
       try {
         console.log("in try");
-
         const response = await createCompanyPlacement(
           { company_placement: values },
           id
         );
         console.log(response.data);
+        navigate(`/get_company_placements/${id}`);
       } catch (error) {
         console.log("in catch");
         console.log(error);
@@ -33,80 +37,107 @@ const CreateCompanyPlacement = () => {
     onSubmit: (values) => {
       console.log(values);
       create_company_placement(values);
-      // navigate(`/company_placements//`);
     },
   });
   return (
-    <form
-      className="max-w-md mx-auto mt-20 px-4 py-8"
-      onSubmit={formik.handleSubmit}
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        minHeight: "100vh",
+        backgroundColor: "#f0f0f0",
+      }}
     >
-      <div className="flex flex-wrap -mx-3 mb-6">
-        <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0"></div>
-        <div>
-          <label
-            className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-            htmlFor="year"
-          >
-            Year:
-          </label>
-          <input
-            id="year"
-            name="year"
-            type="year"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.year}
-            className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-          />
-        </div>
-
-        <div>
-          <label
-            className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-            htmlFor="applied"
-          >
-            Applied:
-          </label>
-          <input
-            id="applied"
-            name="applied"
-            type="text"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.applied}
-            className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-          />
-        </div>
-
-        <div>
-          <label
-            className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-            htmlFor="selected"
-          >
-            Selected:
-          </label>
-          <input
-            id="selected"
-            name="selected"
-            type="text"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.selected}
-            className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-          />
-        </div>
-
-        <div>
-          <button
-            type="submit"
-            className="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded"
-          >
-            ADD
-          </button>
-        </div>
+      <div
+        style={{
+          width: "500px",
+          height: "300px",
+          backgroundColor: "#ffffff",
+          padding: "20px",
+          borderRadius: "5px",
+          boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
+        }}
+      >
+        <Box
+          component="form"
+          sx={{
+            "& .MuiTextField-root": { m: 1, width: "25ch" },
+          }}
+          noValidate
+          autoComplete="off"
+          onSubmit={formik.handleSubmit}
+        >
+          <div>
+            <form className="max-w-md mx-auto" onSubmit={formik.handleSubmit}>
+              <div className="relative z-0 w-full mb-5 group">
+                <div>
+                  <label
+                    className="text-sm text-gray-500 dark:text-gray-400"
+                    htmlFor="year"
+                  >
+                    Year:
+                  </label>
+                  <input
+                    id="year"
+                    name="year"
+                    type="year"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.year}
+                    className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                  />
+                </div>
+                <div>
+                  <label
+                    className="text-sm text-gray-500 dark:text-gray-400"
+                    htmlFor="applied"
+                  >
+                    Applied:
+                  </label>
+                  <input
+                    id="applied"
+                    name="applied"
+                    type="text"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.applied}
+                    className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                  />
+                </div>
+                <div>
+                  <label
+                    className="text-sm text-gray-500 dark:text-gray-400"
+                    htmlFor="selected"
+                  >
+                    Selected:
+                  </label>
+                  <input
+                    id="selected"
+                    name="selected"
+                    type="text"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.selected}
+                    className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                  />
+                </div>
+                <div className="pt-5"></div>
+                <div>
+                  <button
+                    type="submit"
+                    className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    onClick={notify}
+                  >
+                    ADD
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </Box>
       </div>
-    </form>
+    </div>
   );
 };
 
