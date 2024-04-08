@@ -1,21 +1,31 @@
-import React from "react";
-import { createCompany } from "../api/auth";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { Company, createCompany } from "../api/auth";
 import { useFormik } from "formik";
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, Fade, Modal, TextField, Typography } from "@mui/material";
+import { toast, ToastContainer } from "react-toastify";
+import GetCompany from "./GetCompany";
+
 const CreateCompanyForm = () => {
+  const [openModal, setOpenModal] = useState(false);
+  const [company, setCompany] = useState<Company | null>(null);
+  const notify = () => toast("Company added");
   const create_company = async (values: {}) => {
     try {
       console.log("in try");
       const response = await createCompany({ company: values });
       console.log(response.data.id);
-      navigate(`/companies/${response.data.id}`);
+      setCompany(response.data);
+      setOpenModal(true);
     } catch (error) {
       console.log("in catch");
       console.log(error);
     }
   };
-  const navigate = useNavigate();
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
+    setCompany(null);
+  };
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -23,7 +33,6 @@ const CreateCompanyForm = () => {
       website: "",
     },
     onSubmit: (values) => {
-      // console.log(values.password);
       create_company(values);
     },
   });
@@ -109,12 +118,51 @@ const CreateCompanyForm = () => {
                 variant="contained"
                 color="success"
                 disableElevation
+                onClick={notify}
               >
                 Add
               </Button>
             </div>
           </div>
         </Box>
+        <Modal
+          open={openModal}
+          onClose={handleCloseModal}
+          closeAfterTransition
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Fade in={openModal}>
+            <div
+              style={{
+                backgroundColor: "#fff",
+                padding: "20px",
+                minWidth: "300px",
+                maxWidth: "80vw",
+                minHeight: "200px",
+                maxHeight: "80vh",
+                overflow: "auto",
+              }}
+            >
+              <Typography variant="h5" gutterBottom>
+                Company Added Successfully!
+              </Typography>
+              {company && (
+                <GetCompany company={company} onClose={handleCloseModal} />
+              )}
+              <Button onClick={handleCloseModal}>Close</Button>
+            </div>
+          </Fade>
+        </Modal>
+        <ToastContainer
+          position="bottom-right"
+          autoClose={3000}
+          hideProgressBar={true}
+          transition={() => null}
+        />
       </div>
     </div>
   );
