@@ -7,17 +7,21 @@ import { useFormik } from "formik";
 import "../index.css";
 import { Box, Button, TextField } from "@mui/material";
 import { alignProperty } from "@mui/material/styles/cssUtils";
+import { toast } from "react-toastify";
 
 const CreateUserForm = () => {
+  // const notify = () => toast("Added user");
   const createuser = async (values: {}) => {
     try {
       console.log("in try");
       const response = await createUser({ user: values });
       console.log(response.data);
       navigate(`/users/${formik.values.email}`);
+      toast("Added User Succesfully");
     } catch (error) {
       console.log("in catch");
       console.log(error);
+      toast("User details not found");
     }
   };
   const navigate = useNavigate();
@@ -81,7 +85,7 @@ const CreateUserForm = () => {
             />
             <div></div>
             <TextField
-              required
+            required
               id="first_name"
               name="first_name"
               type="text"
