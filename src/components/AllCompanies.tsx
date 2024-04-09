@@ -110,6 +110,7 @@ const AllCompanies = () => {
       style={{ height: 800, width: "100%", margin: "auto", marginTop: "20px" }}
     >
       <h1>Company List</h1>
+
       <input
         type="text"
         placeholder="Search by company name"
@@ -117,6 +118,7 @@ const AllCompanies = () => {
         onChange={(e) => setSearchKey(e.target.value)}
         style={{ marginBottom: "10px", padding: "5px" }}
       />
+
       <DataGrid
         rows={visibleCompanies}
         columns={columns}
