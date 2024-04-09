@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import {
-  Opportunity,
-  handleUpdateOpportunity,
-  closeOpportunity,
-} from "../api/auth";
+import { Opportunity, closeOpportunity } from "../api/auth";
 import API_BASE_URL from "../api/apiConfig";
 
 import axios from "axios";
@@ -26,6 +22,10 @@ const Opportunities = () => {
   const { id } = useParams();
   console.log("in ", id);
   const navigate = useNavigate();
+
+  const [appliedooportunity, setAppliedOpportunity] = useState<Opportunity[]>(
+    []
+  );
 
   const fetchOpportunity = async () => {
     try {
@@ -50,8 +50,8 @@ const Opportunities = () => {
     //     { opportunity: opportunity },
     //     opportunity.id
     //   );
-      navigate(`/update-opportunity/${opportunity.id}`);
-      console.log("Updated oppo  id", opportunity);
+    navigate(`/update-opportunity/${opportunity.id}`);
+    console.log("Updated oppo  id", opportunity);
     // } catch {
     //   console.log("error - updating oppo");
     // } finally {
@@ -69,7 +69,7 @@ const Opportunities = () => {
     }
   };
 
-  const Apply = async (opportunity_id:number) => {
+  const Apply = async (opportunity_id: number) => {
     if (id) {
       await axios({
         method: "POST",
