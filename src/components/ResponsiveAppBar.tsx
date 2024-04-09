@@ -8,7 +8,6 @@ import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
@@ -17,7 +16,6 @@ import { User } from "../api/auth";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import API_BASE_URL from "../api/apiConfig";
-import { Modal } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 // const pages = ["Products", "Pricing", "Blog"];
@@ -171,9 +169,9 @@ function ResponsiveAppBar() {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}></Box>
 
-          <h4 className="mr-4">
+          <h3 className="mr-4">
             <strong>Welcome, </strong> {userDetails?.first_name}
-          </h4>
+          </h3>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="View">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -211,7 +209,7 @@ function ResponsiveAppBar() {
             </Menu>
             <button
               type="submit"
-              className="ml-4 text-white bg-black hover:bg-black focus:ring-4 focus:outline-none focus:ring-black font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center "
+              className="ml-4 text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
               onClick={handleLogout}
             >
               Logout
