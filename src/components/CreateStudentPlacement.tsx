@@ -3,13 +3,11 @@ import { createStudentPlacement } from "../api/auth";
 import { useNavigate, useParams } from "react-router-dom";
 import { useFormik } from "formik";
 import { Box, Button, TextField } from "@mui/material";
-import API_BASE_URL from "../api/apiConfig";
 import { toast } from "react-toastify";
 
 const CreateStudentPlacement = () => {
   const notifyEmailExists = (message: string) => toast(message);
   const { id } = useParams();
-  const notifySuccess = () => toast("Created Student Placements ");
   const create_company = async (values: {}) => {
     if (id) {
       try {
@@ -150,9 +148,6 @@ const CreateStudentPlacement = () => {
                 variant="contained"
                 color="success"
                 disableElevation
-                // onClick={() => {
-                //   formik.handleSubmit();
-                // }}
               >
                 Add
               </Button>
