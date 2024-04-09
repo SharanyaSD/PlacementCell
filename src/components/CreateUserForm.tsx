@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import "../index.css";
 import { Box, Button, TextField } from "@mui/material";
-import { alignProperty } from "@mui/material/styles/cssUtils";
 import { toast } from "react-toastify";
 
 const CreateUserForm = () => {
@@ -85,7 +84,7 @@ const CreateUserForm = () => {
             />
             <div></div>
             <TextField
-            required
+              required
               id="first_name"
               name="first_name"
               type="text"
