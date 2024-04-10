@@ -5,6 +5,7 @@ import API_BASE_URL from "../api/apiConfig";
 
 import axios from "axios";
 import storage from "../utilities/storage";
+import { toast } from "react-toastify";
 
 interface OpportunityId extends Opportunity {
   id: number;
@@ -23,8 +24,8 @@ const Opportunities = () => {
   console.log("in ", id);
   const navigate = useNavigate();
 
-  const [appliedooportunity, setAppliedOpportunity] = useState<Opportunity[]>(
-    []
+  const [appliedooportunity, setAppliedOpportunity] = useState<number | null>(
+    null
   );
 
   const fetchOpportunity = async () => {
@@ -70,26 +71,48 @@ const Opportunities = () => {
   };
 
   const Apply = async (opportunity_id: number) => {
-    if (id) {
-      await axios({
-        method: "POST",
-        url: `${API_BASE_URL}/user_applications`,
-        headers: {
-          Authorization: `Bearer ${storage.getToken()}`,
-        },
-        params: {
-          user_id: user_id,
-          opportunity_id: opportunity_id,
-        },
-      })
-        .then((res) => {
-          console.log(res.data);
-        })
-        .catch((err) => {
-          console.log(err);
+    if (id && !appliedooportunity) {
+      try {
+        await axios({
+          method: "POST",
+          url: `${API_BASE_URL}/user_applications`,
+          headers: {
+            Authorization: `Bearer ${storage.getToken()}`,
+          },
+          params: {
+            user_id: user_id,
+            opportunity_id: opportunity_id,
+          },
         });
+        setAppliedOpportunity(opportunity_id);
+        toast.success("Applied!");
+      } catch (error) {
+        console.error("Error applying: ", error);
+      }
     }
   };
+
+  // const Apply = async (opportunity_id: number) => {
+  //   if (id) {
+  //     await axios({
+  //       method: "POST",
+  //       url: `${API_BASE_URL}/user_applications`,
+  //       headers: {
+  //         Authorization: `Bearer ${storage.getToken()}`,
+  //       },
+  //       params: {
+  //         user_id: user_id,
+  //         opportunity_id: opportunity_id,
+  //       },
+  //     })
+  //       .then((res) => {
+  //         console.log(res.data);
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   }
+  // };
 
   return (
     <div>
@@ -133,7 +156,9 @@ const Opportunities = () => {
                     onClick={() => Apply(opportunity.id)}
                     disabled={opportunity.status === "closed"}
                   >
-                    Apply
+                    {appliedooportunity === opportunity.id
+                      ? "Applied"
+                      : "Apply"}
                   </button>
                 </>
               ) : null}
