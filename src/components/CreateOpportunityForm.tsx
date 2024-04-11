@@ -1,11 +1,15 @@
 import { useFormik } from "formik";
 import React from "react";
-import { createOpportunity } from "../api/auth";
+import { createOpportunity, Opportunity } from "../api/auth";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Box } from "@mui/material";
 
-const CreateOpportunityForm = () => {
+const CreateOpportunityForm = ({
+  handleCancel,
+}: {
+  handleCancel: Function;
+}) => {
   const notify = () => toast("Created Opportunity ");
   const navigate = useNavigate();
   const { id } = useParams();
@@ -15,6 +19,7 @@ const CreateOpportunityForm = () => {
       console.log("try");
       const response = await createOpportunity(values);
       console.log(response.data);
+      handleCancel();
       navigate(`/companies/${id}`);
     } catch (error) {
       console.error("Error creating opportunity:", error);
@@ -213,7 +218,7 @@ const CreateOpportunityForm = () => {
         <div className="pt-10"></div>
         <button
           type="submit"
-          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          className="h-10 text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
           onClick={notify}
         >
           Create Opportunity

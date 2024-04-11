@@ -33,18 +33,18 @@ const router = createBrowserRouter([
     path: "/dashboard",
     element: <Dashboard />,
   },
-  {
-    path: "/create-user",
-    element: <CreateUserForm />,
-  },
+  // {
+  //   path: "/create-user",
+  //   element: <CreateUserForm />,
+  // },
   {
     path: "/users/:email",
     element: <GetUser />,
   },
-  {
-    path: "/create-company",
-    element: <CreateCompanyForm />,
-  },
+  // {
+  //   path: "/create-company",
+  //   element: <CreateCompanyForm />,
+  // },
   {
     path: "/companies/:id",
     element: <CompanyDetails />,
@@ -57,10 +57,10 @@ const router = createBrowserRouter([
     path: "/companies",
     element: <AllCompanies />,
   },
-  {
-    path: "/opportunities/:id",
-    element: <CreateOpportunityForm />,
-  },
+  // {
+  //   path: "/opportunities/:id",
+  //   element: <CreateOpportunityForm />,
+  // },
   {
     path: "/companies/:id",
     element: <CompanyDetails />,

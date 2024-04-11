@@ -5,18 +5,23 @@ import { useNavigate } from "react-router-dom";
 // import axios from "axios";
 import { useFormik } from "formik";
 import "../index.css";
-import { Box, Button, TextField } from "@mui/material";
+// import { Box, TextField } from "@mui/material";
 import { toast } from "react-toastify";
+import { Button, Modal, Form, Input } from "antd";
+import { useState } from "react";
 
-const CreateUserForm = () => {
+const CreateUserForm = ({ handleCancel }: { handleCancel: Function }) => {
   // const notify = () => toast("Added user");
   const createuser = async (values: {}) => {
     try {
       console.log("in try");
       const response = await createUser({ user: values });
       console.log(response.data);
-      navigate(`/users/${formik.values.email}`);
+      // onCancel();
+
+      // navigate(`/users/${formik.values.email}`);
       toast("Added User Succesfully");
+      handleCancel();
     } catch (error) {
       console.log("in catch");
       console.log(error);
@@ -42,140 +47,97 @@ const CreateUserForm = () => {
     },
   });
 
+  const handleOk = async () => {
+    try {
+      await formik.submitForm();
+    } catch (error) {
+      console.error("Form submission error:", error);
+    }
+  };
+
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        minHeight: "100vh",
-        backgroundColor: "#f0f0f0",
-      }}
-    >
-      <div
-        style={{
-          width: "600px",
-          height: "500px",
-          backgroundColor: "#ffffff",
-          padding: "20px",
-          borderRadius: "5px",
-          boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
-        }}
+    <div>
+      {/* <Button type="primary" onClick={showModal}>
+        Open Modal
+      </Button> */}
+
+      <Form
+        layout="vertical"
+        onFinish={formik.handleSubmit}
+        initialValues={formik.initialValues}
       >
-        <Box
-          component="form"
-          sx={{
-            "& .MuiTextField-root": { m: 1, width: "25ch" },
-          }}
-          noValidate
-          autoComplete="off"
-          onSubmit={formik.handleSubmit}
+        <Form.Item label="Role Id" required>
+          <Input
+            name="role_id"
+            type="number"
+            value={formik.values.role_id}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+          />
+        </Form.Item>
+        <Form.Item label="First Name" required>
+          <Input
+            name="first_name"
+            value={formik.values.first_name}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+          />
+        </Form.Item>
+        <Form.Item label="Last Name" required>
+          <Input
+            name="last_name"
+            value={formik.values.last_name}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+          />
+        </Form.Item>
+        <Form.Item label="Email" required>
+          <Input
+            name="email"
+            value={formik.values.email}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+          />
+        </Form.Item>
+        <Form.Item label="Password" required>
+          <Input.Password
+            name="password"
+            value={formik.values.password}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+          />
+        </Form.Item>
+        <Form.Item label="Batch">
+          <Input
+            name="batch"
+            value={formik.values.batch}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+          />
+        </Form.Item>
+        <Form.Item label="Branch" required>
+          <Input
+            name="branch"
+            value={formik.values.branch}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+          />
+        </Form.Item>
+        <Form.Item label="LinkedIn">
+          <Input
+            name="linkedin"
+            value={formik.values.linkedin}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+          />
+        </Form.Item>
+        <Button
+          htmlType="submit"
+          className="h-10 text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
         >
-          <div>
-            <TextField
-              required
-              id="role_id"
-              name="role_id"
-              type="number"
-              label="Role Id"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.role_id}
-            />
-            <div></div>
-            <TextField
-              required
-              id="first_name"
-              name="first_name"
-              type="text"
-              label="First Name"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.first_name}
-            />
-
-            <TextField
-              required
-              id="last_name"
-              name="last_name"
-              type="text"
-              label="Last Name"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.last_name}
-            />
-            <TextField
-              required
-              id="email"
-              name="email"
-              type="text"
-              label="Email"
-              defaultValue={formik.values.email}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-            />
-
-            <TextField
-              required
-              id="password"
-              name="password"
-              label="Password"
-              type="password"
-              autoComplete="current-password"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.password}
-            />
-            <TextField
-              // required
-              id="batch"
-              name="batch"
-              type="text"
-              label="Batch"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.batch}
-            />
-            <TextField
-              required
-              id="branch"
-              name="branch"
-              type="text"
-              label="Branch"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.branch}
-            />
-
-            <TextField
-              // required
-              id="linkedin"
-              name="linkedin"
-              type="text"
-              label="LinkedIn "
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.linkedin}
-            />
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                marginTop: "20px",
-              }}
-            >
-              <Button
-                type="submit"
-                variant="contained"
-                color="success"
-                disableElevation
-              >
-                Create User
-              </Button>
-            </div>
-          </div>
-        </Box>
-      </div>
+          Create
+        </Button>
+      </Form>
     </div>
   );
 };

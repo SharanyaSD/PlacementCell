@@ -58,9 +58,10 @@ const CompanyDetails = () => {
     return <div>Loading...</div>;
   }
   return (
-    <div>
-      <div className="flex justify-between">
-        <div className="w-3/4">
+    <div className="p-30">
+      <div className="flex flex-col items-center justify-center  bg-gray-50 ">
+        {" "}
+        <div className="w-3/4 max-w-4xl">
           <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
             <div className="mb-4">
               <p className="text-4xl font-semibold text-gray-900 dark:text-black">
@@ -85,11 +86,11 @@ const CompanyDetails = () => {
             </div>
           </div>
         </div>
-        <div className="w-1/4 flex flex-col items-center justify-center">
+        <div className="w-3/4 flex justify-center space-x-4">
           {role_id === 1 || role_id === 2 ? (
-            <>
+            <div className="flex">
               <button
-                className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4"
+                className="w-full h-15 text-white me-2 mb-2  bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300 ..."
                 onClick={() => {
                   companyPlacements(company.id);
                 }}
@@ -97,25 +98,28 @@ const CompanyDetails = () => {
                 Create Company Placement
               </button>
               <button
-                className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4"
+                className=" w-full h-15 text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2  transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300 ..."
+                // className="transition ease-in-out delay-150  text-white bg-gradient-to-rfrom-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300 ..."
                 onClick={UpdateCompany}
               >
                 Update Company Details
               </button>
               <button
-                className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4"
+                className="w-full h-15 text-white me-2 mb-2  bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300 ..."
                 onClick={() => {
                   studentPlacements(company.id);
                 }}
               >
                 Create Student Placement
               </button>
-            </>
+            </div>
           ) : null}
           {role_id === 3 ? <></> : null}
         </div>
       </div>
-      <Opportunities />
+      <div>
+        <Opportunities />
+      </div>
     </div>
   );
 };

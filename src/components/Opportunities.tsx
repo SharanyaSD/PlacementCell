@@ -118,14 +118,14 @@ const Opportunities = () => {
     <div>
       <h1>Opportunities for Company</h1>
 
-      <div className="grid grid-cols-1 gap-4">
+      <div className="grid grid-cols-3 gap-20">
         {opportunities.map((opportunity) => (
           <div
             key={opportunity.id}
-            className="bg-white shadow-md rounded px-4 py-4 flex flex-col justify-between"
+            className=" bg-gray-50 shadow-md rounded px-4 py-4 flex flex-col justify-between"
           >
             <div>
-              <p>{opportunity.designation}</p>
+              <p>Destination: {opportunity.designation}</p>
 
               <p>Status: {opportunity.status}</p>
               <p>No. of Applications: {opportunity.no_of_applications}</p>
@@ -136,13 +136,13 @@ const Opportunities = () => {
               {role_id === 1 || role_id === 2 ? (
                 <>
                   <button
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2 ml-1"
+                    className="transition ease-in-out delay-150  text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300 ..."
                     onClick={() => UpdateOpportunity(opportunity)}
                   >
                     Update
                   </button>
                   <button
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-1"
+                    className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300 ..."
                     onClick={() => CloseOpportunity(opportunity)}
                   >
                     Close
@@ -152,7 +152,7 @@ const Opportunities = () => {
               {role_id === 3 ? (
                 <>
                   <button
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2 ml-1"
+                    className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300 ..."
                     onClick={() => Apply(opportunity.id)}
                     disabled={opportunity.status === "closed"}
                   >
