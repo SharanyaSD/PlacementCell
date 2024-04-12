@@ -69,22 +69,18 @@ const AdminAccount = () => {
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z"
-                  />
+                    d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205 3 1m1.5.5-1.5-.5M6.75 7.364V3h-3v18m3-13.636 10.5-3.819"
+                  />{" "}
                 </svg>
               </span>
+
               <div className="space-y-6 pt-5 text-base leading-7 text-gray-600 transition-all duration-300 group-hover:text-white/90">
-                <p className="text-gray-700 ">
+                <p className="text-gray-700 group-hover:text-white">
                   <h2>Create a new user account.</h2>
                 </p>
               </div>
               <div className="pt-5 text-base font-semibold leading-7">
                 <p>
-                  {/* <Button type="primary" onClick={()=>{
-                    showModal();
-                  }}>
-                    Create User
-                  </Button> */}
                   <Button
                     variant="contained"
                     onClick={() => {
@@ -92,7 +88,7 @@ const AdminAccount = () => {
                     }}
                     className="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
                   >
-                    Create user
+                    Create User
                   </Button>
                 </p>
               </div>
@@ -119,7 +115,7 @@ const AdminAccount = () => {
                 </svg>
               </span>
               <div className="space-y-6 pt-5 text-base leading-7 text-gray-600 transition-all duration-300 group-hover:text-white/90">
-                <p className="text-gray-700 ">
+                <p className="text-gray-700 group-hover:text-white">
                   <h2>Add a new company to the list.</h2>
                 </p>
               </div>
