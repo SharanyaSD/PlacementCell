@@ -125,7 +125,7 @@ const Opportunities = () => {
             className=" bg-gray-50 shadow-md rounded px-4 py-4 flex flex-col justify-between"
           >
             <div>
-              <p>Destination: {opportunity.designation}</p>
+              <p>{opportunity.designation}</p>
 
               <p>Status: {opportunity.status}</p>
               <p>No. of Applications: {opportunity.no_of_applications}</p>
