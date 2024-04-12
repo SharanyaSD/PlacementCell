@@ -14,7 +14,7 @@ import CompanyDetails from "./components/CompanyDetails";
 import UpdateCompanyForm from "./components/UpdateCompanyForm";
 import UpdateOpportunityForm from "./components/UpdateOpportunityForm";
 import CreateCompanyPlacement from "./components/CreateCompanyPlacement";
-import { ThemeProvider } from "@emotion/react";
+import  ThemeProvider  from "@mui/material/styles/ThemeProvider";
 import theme from "./utilities/Theme";
 import CssBaseline from "@mui/material/CssBaseline";
 import GetStudentPlacement from "./components/GetStudentPlacement";
