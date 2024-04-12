@@ -7,12 +7,14 @@ import { Box } from "@mui/material";
 
 const CreateOpportunityForm = ({
   handleCancel,
+  id,
 }: {
   handleCancel: Function;
+  id: Number;
 }) => {
   const notify = () => toast("Created Opportunity ");
   const navigate = useNavigate();
-  const { id } = useParams();
+  // const { id } = useParams();
   console.log("in ", id);
   const create_opportunity = async (values: any) => {
     try {
